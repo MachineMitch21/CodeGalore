@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.10)
+
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14)
+
+project(fundamentals)
+
+file(GLOB SOURCES src/*.cpp src/*.c src/*.h src/*.hpp)
+
+target_link_libraries(${PROJECT_NAME} GLEW glfw3 GL X1m1 Xi Xrandr Xxf86vm Xinerma Xcursor rt pthread dl)
+
+add_executable(
+	${PROJECT_NAME}
+)

@@ -1,0 +1,3 @@
+/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/rebuild_cache.dir
+/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir
+/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/edit_cache.dir

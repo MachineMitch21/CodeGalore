@@ -1,0 +1,120 @@
+
+OpenGL process
+
+Core matrix operations for complex rendering
+    - Model matrix
+        - Controls the transformation of each object to be rendered (position, scale and rotation)
+            - glm lays its matrices out in column major order
+                - elements 0, 1, 2, 3 are the first column and so on 
+                - in row major 0, 1, 2, 3 would be the first row
+            - Transformation multiplication order is (translation * rotation * scale)
+    
+    - View matrix 
+        - The view matrix dictates where the viewport in relation to each object in the scene
+            - glm::lookAt function provides a reliable view matrix 
+
+    - Projection matrix 
+        - The projection matrix is one of two types (orthographic or perspective)
+            - Without going into depth about the mathematical technicalities of the two,
+                orthographic is used to display a scene with no depth (2D)
+                and perspective is used for a scene with depth (3D)
+            glm::perspective and glm::ortho are the functions used to create these matrices
+
+    The final output on the screen is produced by the product of those three matrices 
+        - Effectively this is called the MVP matrix (model view projection)
+        - The multiplication order for column major matrices is (projection * view * model)
+        - Idealy this calculation should be done on the cpu so we don't have to calculate it 
+            per vertex in a vertex shader 
+
+    ---- COORDINATE SPACES ----
+
+    - World space 
+        This was such a strange abstract concept for me at first.
+        People just really liked to make it more difficult than it has to be.
+        
+        As an example, this is the calculation we make in shaders that 
+        don't care about a view or a projection 
+
+            Ex. %model% (the matrix that is made up of an object's transformations) * %vertex_position%
+
+            Since the model matrix is made up of the transformations we want the object to have in our 
+            scene, we can multiply the vertex_position of each vertices and that will translate the vertex 
+            based on the position, scaling and rotation transformations contained within the model matrix. 
+
+    - View space 
+        Much like world space, view space was so strange to me.  
+        Once again the community can be rather ambiguous about this term.
+
+        It simply boils down an operation as simple as (model * view). 
+        The new matrix produced from that multiplication represents the view space in correlation to that
+        model matrix 
+
+        We can then take that new matrix which I will call MV and multiply it with a position (MV * position)
+        to get a transformed position into view space 
+
+    
+There are many other matrix operations which are critical to 3D graphics, but understanding these foundational 
+pieces is critical
+
+----- CORE OPENGL ----- 
+Okay, so we know about the foundational matrix operations, but how do we give opengl the data it needs?
+
+VertexBuffers, VertexArrays and IndexBuffers are the core features of OpenGL 
+
+    - VertexBuffer 
+        VertexBuffers are an abstract way for OpenGL to hide the cpu to gpu exchange that goes on within 
+        its black box 
+
+        A vertex buffer is just a contiguous array of data 
+
+        The core OPENGL functions that deal with initialization of VertexBuffers are 
+            - 
+
+
+
+----- LIGHTING -----
+
+	Initialize lighting setup is diffuse lighting 
+
+	Diffuse lighting function looks something like
+
+		vec3 lightDirection = (lightPosition - worldPosition);
+		
+		vec3 worldNormal = normalize(normalMatrix * Normal);
+
+		float d = max(dot(worldNormal, lightDir), 0.0);
+
+		return d;
+
+	To get the worldPosition vector, all we have to do is multiply the model matrix by the vertex position 
+
+		vec3 worldPosition = (modelMatrix * vec4(Position, 1.0)).xyz;
+
+		The model matrix is passed in as a uniform variable to our shader
+
+	The normalMatrix in the diffuse lighting calculation is found by taking the upper left portion of the transpose of the inverse of our model matrix 
+	which is done on the cpu and then sent to the shader as a uniform.
+
+	That looks like this
+
+		glm::mat3 normalMatrix = glm::mat3(glm::transpose(glm::inverse(modelMatrix)));
+
+	Attenuation is the falloff of the light based on the distance from the object it is
+
+		The attenuation equation I am using is made up of three constansts attenCoef, attenLinear, attenSquare 
+
+		It looks like this
+
+			- First we find distance using the worldPosition we calculated earlier and the uniform vec3 that was passed in for lightPosition
+			float dist = distance(worldPosition, lightPosition);
+
+			- Second we use that distance to establish a falloff amount
+			1.0 / (attenCoef + (attenLinear * dist + attenSquare * pow(dist, 2)));
+
+			- My naming scheme for the variables probably makes a bit more sense now.
+		
+				- The attenCoef is just saying (take away some amount of color no matter what the distance from the object was
+
+				- The attenLinear is saying (calculate a linear falloff based on the distance from the object)
+
+				- The attenSquare is saying (calculate an exponential (squared) falloff based on the distance)

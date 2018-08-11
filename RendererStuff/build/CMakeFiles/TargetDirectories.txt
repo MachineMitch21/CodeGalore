@@ -1,0 +1,3 @@
+/home/mitch/Documents/GameEngineStuff/RendererStuff/build/CMakeFiles/rebuild_cache.dir
+/home/mitch/Documents/GameEngineStuff/RendererStuff/build/CMakeFiles/render.dir
+/home/mitch/Documents/GameEngineStuff/RendererStuff/build/CMakeFiles/edit_cache.dir

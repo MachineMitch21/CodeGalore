@@ -6,10 +6,46 @@ CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/vendor/imgui/imgui.h
 CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/vendor/imgui/imgui_impl_glfw.h
 CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/vendor/imgui/imgui_impl_opengl3.h
 CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Application.cpp
+CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/AssetLoader.h
+CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Mesh.h
+CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Model.h
+CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/PrimitiveCreator.h
+CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Renderer.h
 CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Shader.h
 CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Texture2D.h
 CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Transform.h
+CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Vertex.h
 CMakeFiles/antisocial.dir/src/Application.cpp.o: ../src/Window.h
+
+CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o: ../src/AssetLoader.cpp
+CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o: ../src/AssetLoader.h
+CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o: ../src/Mesh.h
+CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o: ../src/Model.h
+CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o: ../src/Shader.h
+CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o: ../src/Vertex.h
+
+CMakeFiles/antisocial.dir/src/Mesh.cpp.o: ../src/Mesh.cpp
+CMakeFiles/antisocial.dir/src/Mesh.cpp.o: ../src/Mesh.h
+CMakeFiles/antisocial.dir/src/Mesh.cpp.o: ../src/Shader.h
+CMakeFiles/antisocial.dir/src/Mesh.cpp.o: ../src/Vertex.h
+
+CMakeFiles/antisocial.dir/src/Model.cpp.o: ../src/Mesh.h
+CMakeFiles/antisocial.dir/src/Model.cpp.o: ../src/Model.cpp
+CMakeFiles/antisocial.dir/src/Model.cpp.o: ../src/Model.h
+CMakeFiles/antisocial.dir/src/Model.cpp.o: ../src/Shader.h
+CMakeFiles/antisocial.dir/src/Model.cpp.o: ../src/Vertex.h
+
+CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o: ../src/Mesh.h
+CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o: ../src/PrimitiveCreator.cpp
+CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o: ../src/PrimitiveCreator.h
+CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o: ../src/Shader.h
+CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o: ../src/Vertex.h
+
+CMakeFiles/antisocial.dir/src/Renderer.cpp.o: ../src/Mesh.h
+CMakeFiles/antisocial.dir/src/Renderer.cpp.o: ../src/Renderer.cpp
+CMakeFiles/antisocial.dir/src/Renderer.cpp.o: ../src/Renderer.h
+CMakeFiles/antisocial.dir/src/Renderer.cpp.o: ../src/Shader.h
+CMakeFiles/antisocial.dir/src/Renderer.cpp.o: ../src/Vertex.h
 
 CMakeFiles/antisocial.dir/src/Shader.cpp.o: ../src/Shader.cpp
 CMakeFiles/antisocial.dir/src/Shader.cpp.o: ../src/Shader.h

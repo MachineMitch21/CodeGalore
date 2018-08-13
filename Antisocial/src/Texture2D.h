@@ -8,7 +8,9 @@
 class Texture2D 
 {
 public:
-    Texture2D(std::string filePath);
+    Texture2D();
+    Texture2D(const Texture2D& oldTex2D);
+    Texture2D(const std::string& file);
     ~Texture2D();
 
     void Bind(unsigned int unit = 0) const;
@@ -17,9 +19,7 @@ public:
     inline int GetWidth() const { return _width; };
     inline int GetHeight() const { return _height; };
 
-    
-
-    static unsigned char* LoadImage(std::string filePath);
+    void Load(const std::string& file);
 
 private:
     unsigned int    _rendererID;

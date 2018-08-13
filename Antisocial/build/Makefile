@@ -150,6 +150,141 @@ src/Application.cpp.s:
 	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Application.cpp.s
 .PHONY : src/Application.cpp.s
 
+src/AssetLoader.o: src/AssetLoader.cpp.o
+
+.PHONY : src/AssetLoader.o
+
+# target to build an object file
+src/AssetLoader.cpp.o:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o
+.PHONY : src/AssetLoader.cpp.o
+
+src/AssetLoader.i: src/AssetLoader.cpp.i
+
+.PHONY : src/AssetLoader.i
+
+# target to preprocess a source file
+src/AssetLoader.cpp.i:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/AssetLoader.cpp.i
+.PHONY : src/AssetLoader.cpp.i
+
+src/AssetLoader.s: src/AssetLoader.cpp.s
+
+.PHONY : src/AssetLoader.s
+
+# target to generate assembly for a file
+src/AssetLoader.cpp.s:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/AssetLoader.cpp.s
+.PHONY : src/AssetLoader.cpp.s
+
+src/Mesh.o: src/Mesh.cpp.o
+
+.PHONY : src/Mesh.o
+
+# target to build an object file
+src/Mesh.cpp.o:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Mesh.cpp.o
+.PHONY : src/Mesh.cpp.o
+
+src/Mesh.i: src/Mesh.cpp.i
+
+.PHONY : src/Mesh.i
+
+# target to preprocess a source file
+src/Mesh.cpp.i:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Mesh.cpp.i
+.PHONY : src/Mesh.cpp.i
+
+src/Mesh.s: src/Mesh.cpp.s
+
+.PHONY : src/Mesh.s
+
+# target to generate assembly for a file
+src/Mesh.cpp.s:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Mesh.cpp.s
+.PHONY : src/Mesh.cpp.s
+
+src/Model.o: src/Model.cpp.o
+
+.PHONY : src/Model.o
+
+# target to build an object file
+src/Model.cpp.o:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Model.cpp.o
+.PHONY : src/Model.cpp.o
+
+src/Model.i: src/Model.cpp.i
+
+.PHONY : src/Model.i
+
+# target to preprocess a source file
+src/Model.cpp.i:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Model.cpp.i
+.PHONY : src/Model.cpp.i
+
+src/Model.s: src/Model.cpp.s
+
+.PHONY : src/Model.s
+
+# target to generate assembly for a file
+src/Model.cpp.s:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Model.cpp.s
+.PHONY : src/Model.cpp.s
+
+src/PrimitiveCreator.o: src/PrimitiveCreator.cpp.o
+
+.PHONY : src/PrimitiveCreator.o
+
+# target to build an object file
+src/PrimitiveCreator.cpp.o:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o
+.PHONY : src/PrimitiveCreator.cpp.o
+
+src/PrimitiveCreator.i: src/PrimitiveCreator.cpp.i
+
+.PHONY : src/PrimitiveCreator.i
+
+# target to preprocess a source file
+src/PrimitiveCreator.cpp.i:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.i
+.PHONY : src/PrimitiveCreator.cpp.i
+
+src/PrimitiveCreator.s: src/PrimitiveCreator.cpp.s
+
+.PHONY : src/PrimitiveCreator.s
+
+# target to generate assembly for a file
+src/PrimitiveCreator.cpp.s:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.s
+.PHONY : src/PrimitiveCreator.cpp.s
+
+src/Renderer.o: src/Renderer.cpp.o
+
+.PHONY : src/Renderer.o
+
+# target to build an object file
+src/Renderer.cpp.o:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Renderer.cpp.o
+.PHONY : src/Renderer.cpp.o
+
+src/Renderer.i: src/Renderer.cpp.i
+
+.PHONY : src/Renderer.i
+
+# target to preprocess a source file
+src/Renderer.cpp.i:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Renderer.cpp.i
+.PHONY : src/Renderer.cpp.i
+
+src/Renderer.s: src/Renderer.cpp.s
+
+.PHONY : src/Renderer.s
+
+# target to generate assembly for a file
+src/Renderer.cpp.s:
+	$(MAKE) -f CMakeFiles/antisocial.dir/build.make CMakeFiles/antisocial.dir/src/Renderer.cpp.s
+.PHONY : src/Renderer.cpp.s
+
 src/Shader.o: src/Shader.cpp.o
 
 .PHONY : src/Shader.o
@@ -432,6 +567,21 @@ help:
 	@echo "... src/Application.o"
 	@echo "... src/Application.i"
 	@echo "... src/Application.s"
+	@echo "... src/AssetLoader.o"
+	@echo "... src/AssetLoader.i"
+	@echo "... src/AssetLoader.s"
+	@echo "... src/Mesh.o"
+	@echo "... src/Mesh.i"
+	@echo "... src/Mesh.s"
+	@echo "... src/Model.o"
+	@echo "... src/Model.i"
+	@echo "... src/Model.s"
+	@echo "... src/PrimitiveCreator.o"
+	@echo "... src/PrimitiveCreator.i"
+	@echo "... src/PrimitiveCreator.s"
+	@echo "... src/Renderer.o"
+	@echo "... src/Renderer.i"
+	@echo "... src/Renderer.s"
 	@echo "... src/Shader.o"
 	@echo "... src/Shader.i"
 	@echo "... src/Shader.s"

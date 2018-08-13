@@ -84,18 +84,6 @@ bool Window::Init()
 
     glfwSetWindowUserPointer(_window, this);
 
-    glewExperimental = GL_TRUE;
-    GLenum err = glewInit();
-
-    if (err != GLEW_OK)
-    {
-        printf("GLEW ERROR -- Could not inialize GLEW\n");
-        return false;
-    }
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-
     glfwGetFramebufferSize(_window, &_width, &_height);
     glViewport(0, 0, _width, _height);
 
@@ -113,10 +101,9 @@ bool Window::IsClosed()
     return glfwWindowShouldClose(_window);
 }
 
-void Window::Clear(float r, float g, float b, float a)
+void Window::Close()
 {
-    glClearColor(r, g, b, a);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glfwSetWindowShouldClose(_window, GLFW_TRUE);
 }
 
 void Window::Update()

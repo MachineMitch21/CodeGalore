@@ -5,6 +5,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/mitch/Documents/GameEngineStuff/Antisocial/src/Application.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/Application.cpp.o"
+  "/home/mitch/Documents/GameEngineStuff/Antisocial/src/AssetLoader.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o"
+  "/home/mitch/Documents/GameEngineStuff/Antisocial/src/Mesh.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/Mesh.cpp.o"
+  "/home/mitch/Documents/GameEngineStuff/Antisocial/src/Model.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/Model.cpp.o"
+  "/home/mitch/Documents/GameEngineStuff/Antisocial/src/PrimitiveCreator.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o"
+  "/home/mitch/Documents/GameEngineStuff/Antisocial/src/Renderer.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/Renderer.cpp.o"
   "/home/mitch/Documents/GameEngineStuff/Antisocial/src/Shader.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/Shader.cpp.o"
   "/home/mitch/Documents/GameEngineStuff/Antisocial/src/Texture2D.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/Texture2D.cpp.o"
   "/home/mitch/Documents/GameEngineStuff/Antisocial/src/Transform.cpp" "/home/mitch/Documents/GameEngineStuff/Antisocial/build/CMakeFiles/antisocial.dir/src/Transform.cpp.o"

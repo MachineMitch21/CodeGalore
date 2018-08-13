@@ -13,7 +13,6 @@ public:
     ~Window();
 
     bool IsClosed();
-    void Clear(float r, float g, float b, float a);
     void Update();
     void Close();
 

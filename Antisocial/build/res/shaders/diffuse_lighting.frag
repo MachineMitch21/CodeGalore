@@ -13,6 +13,7 @@ uniform mat4 modelMatrix;
 uniform mat3 normalMatrix;
 
 uniform sampler2D texture0;
+uniform vec4 objectColor;
 
 uniform float attenCoef;
 uniform float attenLinear;
@@ -46,5 +47,5 @@ void main()
 
     float lightContribution = (((lightColor.x * lightIntensity) + (lightColor.y * lightIntensity) + (lightColor.z * lightIntensity)) / 3);
 
-    FragColor = (((vec4(0.6, 0.6, 0.6, 1.0)) * d * atten) + (lightColor * d * atten)) * lightContribution;
+    FragColor = ((sample * d * atten) + (lightColor * d * atten)) * lightContribution;
 }

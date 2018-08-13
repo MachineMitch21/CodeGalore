@@ -14,9 +14,16 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 #include "Window.h"
+#include "Renderer.h"
 #include "Shader.h"
+#include "Mesh.h"
+#include "PrimitiveCreator.h"
+#include "Model.h"
+#include "AssetLoader.h"
 #include "Texture2D.h"
 #include "Transform.h"
+
+
 
 void InitImGui(GLFWwindow* window)
 {
@@ -70,127 +77,48 @@ int main(int argc, char** argv)
 {
     Window window("Antisocial", 800, 600);
 
-    InitImGui(window.GetGlfwWindow());
+    Renderer renderer;
 
-    std::vector<float> vertices = 
+    if (!renderer.Init())
     {
-        // Front face
-        -0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+        printf("Could not initialize Renderer\n");
+        window.Close();
+    }
 
-        // Right face
-         0.5f, -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-         0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+    Model model;
 
-         // Back face
-         0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
+    AssetLoader assetLoader;
+    assetLoader.LoadModel("res/models/Skull_Mountain.fbx", &model);
 
-         // Left face 
-        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+    Mesh cube;
+    PrimitiveCreator::CreateCube(&cube);
 
-        // Top face 
-        -0.5f,  0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+    Shader cubeShader("res/shaders/diffuse_lighting.vert", "res/shaders/diffuse_lighting.frag");
 
-        // Bottom face 
-        -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f
-    };
+    Texture2D cubeTexture("res/textures/test.jpeg");
 
-    std::vector<unsigned int> indices = 
-    {
-        0,  1,  2,
-        0,  2,  3,
-        4,  5,  6,
-        4,  6,  7,
-        8,  9,  10,
-        8,  10, 11,
-        12, 13, 14,
-        12, 14, 15,
-        16, 17, 18,
-        16, 18, 19,
-        20, 21, 22,
-        20, 22, 23
-    };
+    glm::vec4 clearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-    glFrontFace(GL_CCW);
+    glm::vec3 cubePosition(0.0f);
+    glm::vec3 cubeRotation(0.0f);
 
-    GLuint vao, vbo, ebo;
-
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
-    glGenBuffers(1, &ebo);
-
-    glBindVertexArray(vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)0);
-
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 3));
-
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (void*)(sizeof(float) * 6));
-
-    glBindVertexArray(0);
-
-    Shader shader("res/shaders/color.vert", "res/shaders/color.frag");
-    Shader diffuseLighting("res/shaders/diffuse_lighting.vert", "res/shaders/diffuse_lighting.frag");
-
-    diffuseLighting.Bind();
-    diffuseLighting.SetInteger("texture0", 0);
-    diffuseLighting.UnBind();
-
-    Texture2D testTexture("res/textures/test.jpeg");
-
-    Transform colorModel;
-
-    colorModel.SetPosition(glm::vec3(0.0f, 0.5f, 0.0f));
-    colorModel.SetScale(glm::vec3(.5f));
-    colorModel.SetRotationEuler(glm::vec3(0.0f, 45.0f, 0.0f));
-
-    Transform diffuseModel;
-
-    diffuseModel.SetPosition(glm::vec3(0.0f, -0.5f, 0.0f));
-    diffuseModel.SetScale(glm::vec3(.5f));
-
-    Transform lightModel;
-
-    lightModel.SetScale(glm::vec3(.15f));
-
-    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
-    glm::mat4 proj = glm::perspective(glm::radians(60.0f), 16.0f / 9.0f, 0.1f, 1000.0f);
-
-    glm::vec3 lightPos(-0.5f, 0.25f, 0.5f);
-    glm::vec4 lightColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glm::vec3 camPosition(0.0f, 0.0f, 3.0f);
+    float camFieldOfView = 60.0f;
 
     float attenCoef = 0.5f;
     float attenLinear = 0.5f;
     float attenSquare = 0.5f;
 
+    glm::vec3 lightPosition(-1.0f, 0.5f, 0.5f);
+    glm::vec4 lightColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glm::vec4 objectColor(1.0f, 1.0f, 1.0f, 1.0f);
     float lightIntensity = 1.0f;
 
-    glm::vec4 clearColor(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+    Transform cubeTransform;
+    cubeTransform.SetPosition(glm::vec3(0.0f));
+    cubeTransform.SetRotationEuler(glm::vec3(0.0f));
+
+    InitImGui(window.GetGlfwWindow());
 
     glfwWindowHint(GLFW_SAMPLES, 4);
     glEnable(GL_MULTISAMPLE);
@@ -198,92 +126,61 @@ int main(int argc, char** argv)
     while (!window.IsClosed())
     {
         glfwPollEvents();
+
+        glm::mat4 proj = glm::perspective(glm::radians(camFieldOfView), 16.0f / 9.0f, 0.1f, 100.0f);
+        glm::mat4 view = glm::lookAt(camPosition, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
         BeginImGuiFrame();
 
         ImGui::Begin("Testing 1..2..3..");
-
-        ImGui::SliderFloat("Attenuation coefficient", &attenCoef, 0.0f, 1.0f);
-        ImGui::SliderFloat("Attenuation Linear", &attenLinear, 0.0f, 2.5f);
-        ImGui::SliderFloat("Attenuation Square", &attenSquare, 0.0f, 2.5f);
-        ImGui::SliderFloat3("Light Position", &lightPos.x, -10.0f, 10.0f);
-        ImGui::ColorEdit4("Light Color", &lightColor.x);
-        ImGui::Separator();
+        ImGui::InputFloat3("Cube position", &cubePosition.x);
+        ImGui::InputFloat3("Cube rotation", &cubeRotation.x);
         ImGui::ColorEdit4("Clear Color", &clearColor.x);
-        ImGui::SliderFloat("lightIntensity", &lightIntensity, 0.0f, 10.0f);
-
+        ImGui::ColorEdit4("Object Color", &objectColor.x);
+        ImGui::InputFloat3("Camera Position", &camPosition.x);
+        ImGui::InputFloat3("Light position", &lightPosition.x);
+        ImGui::ColorEdit4("Light color", &lightColor.x);
+        ImGui::InputFloat("Light intensity", &lightIntensity);
+        ImGui::InputFloat("Attenuation Coefficient", &attenCoef);
+        ImGui::InputFloat("Attenuation Linear", &attenLinear);
+        ImGui::InputFloat("Attenuation Square", &attenSquare);
         ImGui::End();
 
         ImGui::Render();
 
-        window.VerifyFrameBufferSize();
-        window.Clear(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
+        renderer.Clear(clearColor.x, clearColor.y, clearColor.z, clearColor.w);
 
-        glm::mat4 mvp = proj * view * colorModel.GetTransformationMatrix();
+        cubeTransform.SetPosition(cubePosition);
+        cubeTransform.SetRotationEuler(cubeRotation);
 
-        shader.Bind();
-        shader.SetVector4("objectColor", 1.0f, 0.0f, 0.0f, 1.0f);
-        shader.SetMatrix4("mvp", glm::value_ptr(mvp));
+        glm::mat4 cubeModelMatrix = cubeTransform.GetTransformationMatrix();
 
-        glBindVertexArray(vao);
-        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+        glm::mat4 mvp = proj * view * cubeModelMatrix;
+        glm::mat3 normalMatrix = glm::mat3(glm::transpose(glm::inverse(cubeModelMatrix)));
 
-        lightModel.SetPosition(lightPos);
+        cubeShader.Bind();
+        cubeShader.SetMatrix4("mvp", glm::value_ptr(mvp));
+        cubeShader.SetMatrix3("normalMatrix", glm::value_ptr(normalMatrix));
+        cubeShader.SetMatrix4("modelMatrix", glm::value_ptr(cubeModelMatrix));
+        cubeShader.SetFloat("attenCoef", attenCoef);
+        cubeShader.SetFloat("attenLinear", attenLinear);
+        cubeShader.SetFloat("attenSquare", attenSquare);
+        cubeShader.SetVector3("lightPos", lightPosition.x, lightPosition.y, lightPosition.z);
+        cubeShader.SetVector4("objectColor", objectColor.x, objectColor.y, objectColor.z, objectColor.w);
+        cubeShader.SetVector4("lightColor", lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+        cubeShader.SetFloat("LightIntensity", lightIntensity);
+        cubeShader.SetInteger("texture0", 0);
 
-        mvp = proj * view * lightModel.GetTransformationMatrix();
+        cubeTexture.Bind();
+        renderer.Draw(&cube, 1);
+        cubeTexture.UnBind();
 
-        shader.SetVector4("objectColor", lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-        shader.SetMatrix4("mvp", glm::value_ptr(mvp));
-
-        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
-
-        shader.UnBind();
-
-        diffuseModel.SetRotationEuler(glm::vec3(0.0f, glfwGetTime() * 10.0f, 0.0f));
-
-        glm::mat4 diffuseModelMat = diffuseModel.GetTransformationMatrix();
-
-        mvp = proj * view * diffuseModelMat;
-
-        glm::mat3 normalMatrix = glm::mat3(glm::transpose(glm::inverse(diffuseModelMat)));
-
-        diffuseLighting.Bind();
-        diffuseLighting.SetMatrix4("mvp", glm::value_ptr(mvp));
-        diffuseLighting.SetMatrix4("modelMatrix", glm::value_ptr(diffuseModelMat));
-        diffuseLighting.SetMatrix3("normalMatrix", glm::value_ptr(normalMatrix));
-        diffuseLighting.SetVector3("lightPos", lightPos.x, lightPos.y, lightPos.z);
-        diffuseLighting.SetFloat("attenCoef", attenCoef);
-        diffuseLighting.SetFloat("attenLinear", attenLinear);
-        diffuseLighting.SetFloat("attenSquare", attenSquare);
-        diffuseLighting.SetVector4("lightColor", lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-        diffuseLighting.SetFloat("lightIntensity", lightIntensity);
-
-        glBindVertexArray(vao);
-        testTexture.Bind();
-        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-        testTexture.UnBind();
-        glBindVertexArray(0);
-
-        diffuseLighting.UnBind();
+        cubeShader.UnBind();
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         window.Update();
     }
 
-    int err;
-    float test = diffuseLighting.GetFloat("attenCoef", &err);
-
-    if (err != -1)
-    {
-        printf("%.2f\n", test);
-    }
-    
-    std::vector<float> testVec3Query = diffuseLighting.GetVector3("lightPos", &err);
-
-    if (err != -1)
-    {
-        printf("%.2f, %.2f, %.2f\n", testVec3Query[0], testVec3Query[1], testVec3Query[2]);
-    }
     return 0;
 }

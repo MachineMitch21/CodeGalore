@@ -1,5 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/antisocial.dir/src/Application.cpp.o"
+  "CMakeFiles/antisocial.dir/src/AssetLoader.cpp.o"
+  "CMakeFiles/antisocial.dir/src/Mesh.cpp.o"
+  "CMakeFiles/antisocial.dir/src/Model.cpp.o"
+  "CMakeFiles/antisocial.dir/src/PrimitiveCreator.cpp.o"
+  "CMakeFiles/antisocial.dir/src/Renderer.cpp.o"
   "CMakeFiles/antisocial.dir/src/Shader.cpp.o"
   "CMakeFiles/antisocial.dir/src/Texture2D.cpp.o"
   "CMakeFiles/antisocial.dir/src/Transform.cpp.o"
